@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "defaultSchema": "mongo",
+  "schemas": [
+    {
+      "type": "custom",
+      "name": "test",
+      "factory": "org.apache.calcite.adapter.mongodb.MongoSchemaFactory",
+      "operand": {
+        "host": "127.0.0.1:27017",
+        "database": "aiops",
+        "authMechanism": "SCRAM-SHA-1",
+        "authDatabase": "admin",
+        "username": "aiops",
+        "password": "aiops"
+      }
+    },
+    {
+      "name": "mongo",
+      "tables": [
+        {
+          "name": "anomaly.kpi",
+          "type": "view",
+          "sql": "select cast(_MAP['kpi_key'] AS varchar(20)) AS \"kpiKey\", cast(_MAP['name'] AS varchar(20)) AS \"name\", cast(_MAP['server'] AS varchar(20)) AS \"name\" from \"test\".\"anomaly.kpi\""
+        }
+      ]
+    }
+  ]
+}
